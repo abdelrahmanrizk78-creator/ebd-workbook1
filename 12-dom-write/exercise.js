@@ -30,9 +30,25 @@
  * @returns {void}
  */
 export function addProduct(name, price) {
-  // TODO: createElement for each piece, fill them in, append them together,
-  // then append the card to #list. Nothing appears until that last step.
-  throw new Error("addProduct is not written yet");
+  const card = document.createElement("li");
+  card.classList.add("card");
+
+  const title = document.createElement("h3");
+  title.textContent = name;
+
+  const tag = document.createElement("p");
+  tag.classList.add("price");
+  tag.textContent = `${price} EGP`;
+
+  card.append(title, tag);
+  document.querySelector("#list").append(card);
+}
+
+// The card whose h3 says `name`, or undefined if there is none.
+function findCard(name) {
+  return Array.from(document.querySelectorAll("#list .card")).find(
+    (card) => card.querySelector("h3").textContent === name
+  );
 }
 
 /**
@@ -43,8 +59,10 @@ export function addProduct(name, price) {
  * @returns {void}
  */
 export function removeProduct(name) {
-  // TODO: find the right card, then call .remove() on it.
-  throw new Error("removeProduct is not written yet");
+  const card = findCard(name);
+  if (card) {
+    card.remove();
+  }
 }
 
 /**
@@ -55,8 +73,10 @@ export function removeProduct(name) {
  * @returns {void}
  */
 export function markSoldOut(name) {
-  // TODO: find the card, then classList.add.
-  throw new Error("markSoldOut is not written yet");
+  const card = findCard(name);
+  if (card) {
+    card.classList.add("sold-out");
+  }
 }
 
 /**
@@ -65,8 +85,9 @@ export function markSoldOut(name) {
  * @returns {void}
  */
 export function clearProducts() {
-  // TODO: loop over all the cards and remove each one.
-  throw new Error("clearProducts is not written yet");
+  for (const card of document.querySelectorAll("#list .card")) {
+    card.remove();
+  }
 }
 
 /**
@@ -90,4 +111,17 @@ export function clearProducts() {
  * Remember `export`.
  */
 
-// TODO: write wireButtons here.
+export function wireButtons() {
+  document.querySelector("#add").addEventListener("click", () => {
+    addProduct("Notebook", 45);
+  });
+  document.querySelector("#reset").addEventListener("click", () => {
+    clearProducts();
+  });
+}
+
+// In the real browser there is no `process`, so wire the buttons up when the
+// page loads. The tests run in Node and call wireButtons() themselves.
+if (typeof process === "undefined") {
+  wireButtons();
+}
