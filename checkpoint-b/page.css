@@ -1,0 +1,22 @@
+/* Checkpoint B — your styling. Build it to checkpoint-b/spec.md. */
+
+body {
+  font-family: system-ui, "Segoe UI", Arial, sans-serif;
+  background-color: #f4f6f8;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 16px;
+}
+
+#list {
+  list-style: none;
+  padding: 0;
+}
+
+.row {
+  padding: 10px 14px;
+  color: #1f2933;
+  background-color: #ffffff;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
